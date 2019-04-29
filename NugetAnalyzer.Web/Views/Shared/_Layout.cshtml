@@ -48,13 +48,9 @@
                         </a>
                     </li>
                 </ul>
-                <button class="btn btn-default dropdown-toggle text-white lead" type="button" id="dropddownMenu" data-toggle="dropdown">
-                    <span style="font-size:24px">
-                        <img src="~/images/icon.jpg" width="24px" height="24px" alt="Alternate Text" />
-                    </span>
-
-                    <span class="caret align-middle"></span>
-                </button>
+                <a asp-controller="GitHubAuth" asp-action="Login" class="btn btn-primary" role="button">
+                    Sign In via Bootstrap
+                </a>
                 <ul class="dropdown-menu text-white pull-right dropdown-menu-right mr-auto" aria-labelled-by="dropddownMenu">
                     <li>
                         <a asp-action="About" asp-controller="Home" class="nav-link navbar__li">

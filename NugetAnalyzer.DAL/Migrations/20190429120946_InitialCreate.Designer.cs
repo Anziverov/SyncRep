@@ -10,8 +10,8 @@ using NugetAnalyzer.DAL.Context;
 namespace NugetAnalyzer.DAL.Migrations
 {
     [DbContext(typeof(NugetAnalyzerDbContext))]
-    [Migration("20190429084648_Init")]
-    partial class Init
+    [Migration("20190429120946_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -137,11 +137,17 @@ namespace NugetAnalyzer.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AvatarUrl");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(256);
+
+                    b.Property<int>("GitHubId");
+
+                    b.Property<string>("GitHubUrl");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(256);
@@ -151,6 +157,8 @@ namespace NugetAnalyzer.DAL.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasAlternateKey("GitHubId");
 
                     b.ToTable("Users");
                 });

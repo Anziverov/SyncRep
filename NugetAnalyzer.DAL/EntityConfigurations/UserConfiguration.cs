@@ -26,6 +26,8 @@ namespace NugetAnalyzer.DAL.EntityConfigurations
             builder
                 .Property(p => p.LastName)
                 .HasMaxLength(256);
+
+            builder.HasAlternateKey(p => p.GitHubId);
         }
     }
 }

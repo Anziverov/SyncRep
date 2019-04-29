@@ -3,11 +3,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NugetAnalyzer.BLL.Interfaces;
+using NugetAnalyzer.BLL.Services;
 using NugetAnalyzer.DAL.Context;
 using NugetAnalyzer.DAL.Interfaces;
 using NugetAnalyzer.DAL.Repositories;
 using NugetAnalyzer.DAL.UnitOfWork;
 using NugetAnalyzer.Web.Middleware;
+using NugetAnalyzer.Web.ServiceCollectionExtensions;
 
 namespace NugetAnalyzer.Web
 {
@@ -18,6 +21,7 @@ namespace NugetAnalyzer.Web
             Configuration = new ConfigurationBuilder()
                                 .SetBasePath(environment.ContentRootPath)
                                 .AddJsonFile("appsettings.json")
+                                .AddUserSecrets<Startup>()
                                 .Build();
         }
 
@@ -32,8 +36,11 @@ namespace NugetAnalyzer.Web
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddMvc();
+
+            services.AddGitHubOAuth(Configuration.GetSection("GitHubEndPoints"), Configuration.GetSection("GitHubAppSettings"));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -44,6 +51,9 @@ namespace NugetAnalyzer.Web
             }
 
             app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+            app.UseAuthentication();
+
             app.UseMvc();
 
             app.UseStaticFiles();

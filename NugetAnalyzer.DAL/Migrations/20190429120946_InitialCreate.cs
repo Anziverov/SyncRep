@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NugetAnalyzer.DAL.Migrations
 {
-    public partial class Init : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,11 +30,15 @@ namespace NugetAnalyzer.DAL.Migrations
                     UserName = table.Column<string>(maxLength: 256, nullable: false),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     FirstName = table.Column<string>(maxLength: 256, nullable: true),
-                    LastName = table.Column<string>(maxLength: 256, nullable: true)
+                    LastName = table.Column<string>(maxLength: 256, nullable: true),
+                    AvatarUrl = table.Column<string>(nullable: true),
+                    GitHubUrl = table.Column<string>(nullable: true),
+                    GitHubId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                    table.UniqueConstraint("AK_Users_GitHubId", x => x.GitHubId);
                 });
 
             migrationBuilder.CreateTable(

@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace NugetAnalyzer.Domain
+﻿namespace NugetAnalyzer.BLL.Models
 {
-    public class User
+    public class Profile
     {
-        public int Id { get; set; }
-
         public string UserName { get; set; }
 
         public string Email { get; set; }
@@ -19,7 +15,5 @@ namespace NugetAnalyzer.Domain
         public string GitHubUrl { get; set; }
 
         public int GitHubId { get; set; }
-        
-        public ICollection<Repository> Repositories { get; set; }
     }
 }

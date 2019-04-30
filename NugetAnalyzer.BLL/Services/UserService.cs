@@ -18,11 +18,17 @@ namespace NugetAnalyzer.BLL.Services
             users = unitOfWork.GetRepository<User>();
         }
 
-        public async Task<int> CreateUserAsync(Profile profile)
+        public async void CreateUserAsync(Profile profile)
         {
             User user = UserConverter.ConvertProfileToUser(profile);
             users.Add(user);
-            return await unitOfWork.SaveChangesAsync();
+            await unitOfWork.SaveChangesAsync();
+        }
+
+        public Profile GetProfileByUserName(string userName)
+        {
+            var user = users.GetSingleOrDefaultAsync(p => p.UserName == userName).Result;
+            return UserConverter.ConvertUserToProfile(user);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using NugetAnalyzer.BLL.Models;
+﻿using System;
+using NugetAnalyzer.BLL.Models;
 using NugetAnalyzer.Domain;
 
 namespace NugetAnalyzer.BLL.Converters
@@ -10,12 +11,23 @@ namespace NugetAnalyzer.BLL.Converters
             return profile == null ? null : new User
             {
                 UserName = profile.UserName,
-                FirstName = profile.FirstName,
-                LastName = profile.LastName,
                 Email = profile.Email,
                 GitHubId = profile.GitHubId,
                 GitHubUrl = profile.GitHubUrl,
                 AvatarUrl = profile.AvatarUrl
+            };
+        }
+
+        internal static Profile ConvertUserToProfile(User user)
+        {
+            return user == null ? null : new Profile
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                GitHubId = user.GitHubId,
+                GitHubUrl = user.GitHubUrl,
+                AvatarUrl = user.AvatarUrl,
+                Id = user.Id
             };
         }
     }

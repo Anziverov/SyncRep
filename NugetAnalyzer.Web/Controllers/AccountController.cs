@@ -21,6 +21,7 @@ namespace NugetAnalyzer.Web.Controllers
         public IActionResult CreateUser(Profile profile)
         {
             userService.CreateUserAsync(profile);
+           
             return View("Profile");
         }
     }

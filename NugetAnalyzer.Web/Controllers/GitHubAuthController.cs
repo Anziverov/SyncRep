@@ -22,7 +22,7 @@ namespace NugetAnalyzer.Web.Controllers
                 AvatarUrl = User.FindFirstValue("urn:github:avatar")
             };
 
-            return RedirectToAction("UserLogin", "Account", profile);
+            return RedirectToAction("UserGitHubLogin", "Account", profile);
         }
     }
 }

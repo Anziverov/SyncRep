@@ -25,6 +25,12 @@ namespace NugetAnalyzer.BLL.Services
             await unitOfWork.SaveChangesAsync();
         }
 
+        public Profile GetProfileByGitHubId(int gitHubId)
+        {
+            var user = users.GetSingleOrDefaultAsync(p => p.GitHubId == gitHubId).Result;
+            return UserConverter.ConvertUserToProfile(user);
+        }
+
         public Profile GetProfileByUserName(string userName)
         {
             var user = users.GetSingleOrDefaultAsync(p => p.UserName == userName).Result;

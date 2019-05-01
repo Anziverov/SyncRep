@@ -21,14 +21,8 @@ namespace NugetAnalyzer.Web.Controllers
                 GitHubId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
                 AvatarUrl = User.FindFirstValue("urn:github:avatar")
             };
-        
-        
-            //var a1 = User.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
-            //var a2 = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
-            //var a3 = User.FindFirst(c => c.Type == "urn:github:url")?.Value;
-            //var a4 = User.FindFirst(c => c.Type == "urn:github:avatar")?.Value;
-            //var a5 = User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            return RedirectToAction("UserCreationForm", "Account", profile);
+
+            return RedirectToAction("UserLogin", "Account", profile);
         }
     }
 }

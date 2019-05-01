@@ -5,8 +5,9 @@ namespace NugetAnalyzer.BLL.Interfaces
 {
     public interface IUserService
     {
-        Task<int> CreateUserAsync(Profile profile);
+        void CreateUserAsync(Profile profile);
 
-        Task<Profile> GetProfileByIdAsync(int userId);
+        Profile GetProfileByUserName(string userName);
+        Profile GetProfileByGitHubId(int gitHubId);
     }
 }

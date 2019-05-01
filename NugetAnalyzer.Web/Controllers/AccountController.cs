@@ -11,6 +11,17 @@ namespace NugetAnalyzer.Web.Controllers
         {
             this.userService = userService;
         }
+
+        public IActionResult UserGitHubLogin(Profile profile)
+        {
+            Profile userProfile = userService.GetProfileByGitHubId(profile.GitHubId);
+            if (userProfile != null)
+            {
+                return RedirectToAction("Profile", userProfile);
+            }
+            return RedirectToAction("UserCreationForm", profile);
+        }
+
         [HttpGet]
         public IActionResult UserCreationForm(Profile profile)
         {
@@ -21,7 +32,8 @@ namespace NugetAnalyzer.Web.Controllers
         public IActionResult CreateUser(Profile profile)
         {
             userService.CreateUserAsync(profile);
-           
+
+            var userProfile = userService.GetProfileByGitHubId(profile.GitHubId);
             return View("Profile");
         }
     }

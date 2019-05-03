@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using NugetAnalyzer.BLL.Interfaces;
 using NugetAnalyzer.BLL.Models;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace NugetAnalyzer.Web.Controllers
@@ -36,6 +39,13 @@ namespace NugetAnalyzer.Web.Controllers
 
             var userProfile = userService.GetProfileByGitHubId(profile.GitHubId);
             return View("Profile", userProfile);
+        }
+
+        public IActionResult Profile()
+        {
+            var userGitHubId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var profile = userService.GetProfileByGitHubId(userGitHubId);
+            return View("Profile", profile);
         }
     }
 }

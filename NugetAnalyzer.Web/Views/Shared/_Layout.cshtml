@@ -48,9 +48,18 @@
                         </a>
                     </li>
                 </ul>
-                <a asp-controller="GitHubAuth" asp-action="Login" class="btn btn-primary" role="button">
-                    Sign In via Bootstrap
-                </a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Account" asp-action="Profile" class="btn btn-primary" role="button">
+                        Profile
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="GitHubAuth" asp-action="Login" class="btn btn-primary" role="button">
+                        Sign In via Bootstrap
+                    </a>
+                }
                 <ul class="dropdown-menu text-white pull-right dropdown-menu-right mr-auto" aria-labelled-by="dropddownMenu">
                     <li>
                         <a asp-action="About" asp-controller="Home" class="nav-link navbar__li">

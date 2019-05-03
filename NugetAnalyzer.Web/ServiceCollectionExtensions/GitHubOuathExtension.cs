@@ -40,7 +40,7 @@ namespace NugetAnalyzer.Web.ServiceCollectionExtensions
                options.Scope.Add("repo");
 
                options.SaveTokens = true;
-
+                
                options.Events = new OAuthEvents
                {
                    OnCreatingTicket = async context =>
@@ -48,12 +48,11 @@ namespace NugetAnalyzer.Web.ServiceCollectionExtensions
                        var request = new HttpRequestMessage(HttpMethod.Get, context.Options.UserInformationEndpoint);
                        request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", context.AccessToken);
-
+                       
                        var response = await context.Backchannel.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, context.HttpContext.RequestAborted);
                        response.EnsureSuccessStatusCode();
 
                        var user = JObject.Parse(await response.Content.ReadAsStringAsync());
-
                        context.RunClaimActions(user);
                    }
                };
